@@ -28,6 +28,10 @@
     <button id="setProductName">SET PRODUCT NAME</button>
     <input id="productName" type="text"/>
   </div>
+  <button id="pointTeam1">+1 punkts TEAM 1</button>
+  <button id="pointTeam2">+1 punkts TEAM 2</button>
+  <button id="pointTeam3">+1 punkts TEAM 3</button>
+  <button id="pointReset">Reset Points</button>
   
 </div>
 
@@ -203,6 +207,81 @@
         console.error(error);
       });
   });
+
+  $('#pointTeam1').on('click', function(){
+    get(uzminicenu).then((snapshot) => {
+        if (snapshot.exists()) {
+          var player1 = snapshot.val().team1;
+          set(ref(db, 'root/uzminicenu/team1'), {
+            cena: player1.cena,
+            punkti: player1.punkti+1
+          });
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+  });
+
+  $('#pointTeam2').on('click', function(){
+    get(uzminicenu).then((snapshot) => {
+        if (snapshot.exists()) {
+          var player2 = snapshot.val().team2;
+          set(ref(db, 'root/uzminicenu/team2'), {
+            cena: player2.cena,
+            punkti: player2.punkti+1
+          });
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+  });
+
+  $('#pointTeam3').on('click', function(){
+    get(uzminicenu).then((snapshot) => {
+        if (snapshot.exists()) {
+          var player3 = snapshot.val().team3;
+          set(ref(db, 'root/uzminicenu/team3'), {
+            cena: player3.cena,
+            punkti: player3.punkti+1
+          });
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+  });
+
+  $('#pointReset').on('click', function(){
+    get(uzminicenu).then((snapshot) => {
+        if (snapshot.exists()) {
+          var player1 = snapshot.val().team1;
+          var player2 = snapshot.val().team2;
+          var player3 = snapshot.val().team3;
+          set(ref(db, 'root/uzminicenu/team1'), {
+            cena: player1.cena,
+            punkti: 0
+          });
+          set(ref(db, 'root/uzminicenu/team2'), {
+            cena: player2.cena,
+            punkti: 0
+          });
+          set(ref(db, 'root/uzminicenu/team3'), {
+            cena: player3.cena,
+            punkti: 0
+          });
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+  });
+
 
 </script>
   
