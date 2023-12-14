@@ -1,0 +1,124 @@
+#wrapper{
+  width: 1920px;
+  height: 1080px;
+}
+
+
+h1{
+  font-size: 25px;
+  font-family: "Tahoma";
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+p{
+  font-size: 25px;
+  font-family: "Tahoma";
+  margin-bottom: 0px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.container{
+  display: flex;
+  flex-wrap: wrap;
+}
+.container p {
+  flex: 2 1 50%;
+}
+
+#produkts h1{
+  background-color: rgb(30, 60, 255);
+  margin: 0px;
+  padding: 10px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgba(0,0,0,0.7);
+}
+
+#produkts p{
+  font-size: 20px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+#produkts{
+  color: white;
+  text-align: center;
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgb(27, 65, 255) 0%, rgba(252, 70, 179, 0.8) 100%);
+  width:1200px;
+  position:absolute;
+  top: 830px;
+  left: 360px;
+  border-radius: 10px;
+}
+
+div{
+  font-weight: bold;
+}
+
+table {
+  padding: 5px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  table-layout: fixed ;
+  width: 100%;
+  height:100%;
+  font-size: 22px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgba(0,0,0,0.2);
+}
+
+.atb1:before {
+  content: "A) ";
+}
+
+.atb2:before {
+  content: "B) ";
+}
+
+.atb3:before {
+  content: "C) ";
+}
+
+.atb4:before {
+  content: "D) ";
+}
+
+.team{
+  color: white;
+  text-align: center;
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(27, 65, 255, 0.8) 0%, rgba(252, 70, 179, 0.8) 100%);
+  width:200px;
+  position:absolute;
+  border-radius: 10px;
+}
+
+.team h1{
+  background-color: rgba(30, 60, 255, 0.8);
+  margin: 0px;
+  padding: 2px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgba(0,0,0,1);
+}
+
+.team p{
+  font-size: 25px;
+  padding-bottom: 10px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgba(0,0,0,0.3);
+}
+
+#team1 {
+  top: 30px;
+  left: 40px;
+}
+
+#team2 {
+  top: 30px;
+  left: 1680px;
+}
