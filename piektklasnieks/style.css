@@ -54,7 +54,7 @@ th button {
   background: radial-gradient(circle, rgb(27, 65, 255) 0%, rgb(252, 70, 179) 100%);
   height: 75px;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 42px;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: rgba(0,0,0,1);
 }
