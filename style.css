@@ -5,8 +5,10 @@
 
 .player{
   margin: 0px;
-  background-color:rgba(161, 255, 249, 0.5);
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
   border-radius: 10px;
+  color: white;
 }
 
 
@@ -17,6 +19,7 @@ h1{
   border-top-right-radius: 10px;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+  background-color: rgb(62, 62, 62);
 }
 
 p{
@@ -36,7 +39,7 @@ p{
 }
 
 #player1 h1{
-  background-color: white;
+  background-color: rgb(62, 62, 62);
   margin: 0px;
 }
 
@@ -91,8 +94,10 @@ p{
 }
 
 #produkts{
+  color: white;
   text-align: center;
-  background-color:rgba(107, 227, 219, 0.8);
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
   width:350px;
   height:200px;
   position:absolute;
