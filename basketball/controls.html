@@ -1,0 +1,212 @@
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js' type='text/javascript'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <meta charset="utf-8">
+</head>
+<body data-new-gr-c-s-check-loaded="14.1115.0" data-gr-ext-installed="">
+
+<div id="wrapper">
+  <table>
+    <tr class="controlsTr">
+      <th></th>
+      <th><button>MŪZIKA</button></th>
+      <th><button>DABASZINĪBAS</button></th>
+      <th><button>SPORTS</button></th>
+      <th><button>ĢEOGRĀFIJA</button></th>
+      <th><button>FIZIKA</button></th>
+    </tr>
+    <tr>
+      <td><button>100</button></td>
+      <td><input class="active" value="active" type=button data-target="t1q1"/><input class="enable" value="disable/enable" type=button data-target="t1q1"/></td>
+      <td><input class="active" value="active" type=button data-target="t2q1"/><input class="enable" value="disable/enable" type=button data-target="t2q1"/></td>
+      <td><input class="active" value="active" type=button data-target="t3q1"/><input class="enable" value="disable/enable" type=button data-target="t3q1"/></td>
+      <td><input class="active" value="active" type=button data-target="t4q1"/><input class="enable" value="disable/enable" type=button data-target="t4q1"/></td>
+      <td><input class="active" value="active" type=button data-target="t5q1"/><input class="enable" value="disable/enable" type=button data-target="t5q1"/></td>
+    </tr>
+    <tr>
+      <td><button>200</button></td>
+      <td><input class="active" value="active" type=button data-target="t1q2"/><input class="enable" value="disable/enable" type=button data-target="t1q2"/></td>
+      <td><input class="active" value="active" type=button data-target="t2q2"/><input class="enable" value="disable/enable" type=button data-target="t2q2"/></td>
+      <td><input class="active" value="active" type=button data-target="t3q2"/><input class="enable" value="disable/enable" type=button data-target="t3q2"/></td>
+      <td><input class="active" value="active" type=button data-target="t4q2"/><input class="enable" value="disable/enable" type=button data-target="t4q2"/></td>
+      <td><input class="active" value="active" type=button data-target="t5q2"/><input class="enable" value="disable/enable" type=button data-target="t5q2"/></td>
+    </tr>
+    <tr>
+      <td><button>300</button></td>
+      <td><input class="active" value="active" type=button data-target="t1q3"/><input class="enable" value="disable/enable" type=button data-target="t1q3"/></td>
+      <td><input class="active" value="active" type=button data-target="t2q3"/><input class="enable" value="disable/enable" type=button data-target="t2q3"/></td>
+      <td><input class="active" value="active" type=button data-target="t3q3"/><input class="enable" value="disable/enable" type=button data-target="t3q3"/></td>
+      <td><input class="active" value="active" type=button data-target="t4q3"/><input class="enable" value="disable/enable" type=button data-target="t4q3"/></td>
+      <td><input class="active" value="active" type=button data-target="t5q3"/><input class="enable" value="disable/enable" type=button data-target="t5q3"/></td>
+    </tr>
+    <tr>
+      <td><button>400</button></td>
+      <td><input class="active" value="active" type=button data-target="t1q4"/><input class="enable" value="disable/enable" type=button data-target="t1q4"/></td>
+      <td><input class="active" value="active" type=button data-target="t2q4"/><input class="enable" value="disable/enable" type=button data-target="t2q4"/></td>
+      <td><input class="active" value="active" type=button data-target="t3q4"/><input class="enable" value="disable/enable" type=button data-target="t3q4"/></td>
+      <td><input class="active" value="active" type=button data-target="t4q4"/><input class="enable" value="disable/enable" type=button data-target="t4q4"/></td>
+      <td><input class="active" value="active" type=button data-target="t5q4"/><input class="enable" value="disable/enable" type=button data-target="t5q4"/></td>
+    </tr>
+    <tr>
+      <td><button>500</button></td>
+      <td><input class="active" value="active" type=button data-target="t1q5"/><input class="enable" value="disable/enable" type=button data-target="t1q5"/></td>
+      <td><input class="active" value="active" type=button data-target="t2q5"/><input class="enable" value="disable/enable" type=button data-target="t2q5"/></td>
+      <td><input class="active" value="active" type=button data-target="t3q5"/><input class="enable" value="disable/enable" type=button data-target="t3q5"/></td>
+      <td><input class="active" value="active" type=button data-target="t4q5"/><input class="enable" value="disable/enable" type=button data-target="t4q5"/></td>
+      <td><input class="active" value="active" type=button data-target="t5q5"/><input class="enable" value="disable/enable" type=button data-target="t5q5"/></td>
+    </tr>
+  </table>
+  <div id="pointHandler">
+    <button class="add50" data-target="team1">Add 50 Team 1</button>
+    <button class="add100" data-target="team1">Add 100 Team 1</button>
+    <button class="add50" data-target="team2">Add 50 Team 2</button>
+    <button class="add100" data-target="team2">Add 100 Team 2</button>
+    <button class="resetTeam" data-target="team1">Reset Team 1</button>
+    <button class="resetTeam" data-target="team2">Reset Team 2</button>
+  </div>
+</div>
+
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+  import { getDatabase, ref, onValue, get, set }  from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAAoCC_sfhL8-FAXlzrGspFTFscF2QPfD0",
+    authDomain: "charity-d9975.firebaseapp.com",
+    databaseURL: "https://charity-d9975-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "charity-d9975",
+    storageBucket: "charity-d9975.appspot.com",
+    messagingSenderId: "849116577372",
+    appId: "1:849116577372:web:2df42d50e78bb863c37099"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  const db = getDatabase(app);
+
+  const piektklasnieks = ref(db, 'root/5klasnieks/jautajumi');
+  const team1 = ref(db, 'root/5klasnieks/team1');
+  const team2 = ref(db, 'root/5klasnieks/team2');
+
+  onValue(piektklasnieks, (snapshot) => {
+    var questions = snapshot.val();
+  });
+
+
+  $('input.active').on('click', function(){
+    get(piektklasnieks).then((snapshot) => {
+        if (snapshot.exists()) {
+          var target = $(this).attr("data-target");
+          var snap = snapshot.val();
+          for(var item in snap){
+            console.log(item)
+            var q = snap[item];
+            if(item == target){
+              set(ref(db, 'root/5klasnieks/jautajumi/'+item), {
+                active: true,
+                available: q.available,
+                question: q.question
+              });
+            }else{
+              set(ref(db, 'root/5klasnieks/jautajumi/'+item), {
+                active: false,
+                available: q.available,
+                question: q.question
+              });
+            }
+          }
+          var q = snap[target];
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+  })
+
+  $('input.enable').on('click', function(){
+    get(piektklasnieks).then((snapshot) => {
+        if (snapshot.exists()) {
+          var target = $(this).attr("data-target");
+          var snap = snapshot.val();
+          var q = snap[target];
+          var status = q.available;
+          console.log(q);
+          console.log(status);
+           set(ref(db, 'root/5klasnieks/jautajumi/'+target), {
+             active: q.active,
+             available: !status,
+             question: q.question
+           });
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+  })
+
+  $('.add50').on('click', function(){
+    var target = $(this).attr("data-target");
+    if(target == "team1"){
+      get(team1).then((snapshot) => {
+        var snap = snapshot.val();
+        set(ref(db, 'root/5klasnieks/team1'), {
+          punkti: snap.punkti+50
+        });
+      })
+    }else{
+      get(team2).then((snapshot) => {
+        var snap = snapshot.val();
+        set(ref(db, 'root/5klasnieks/team2'), {
+          punkti: snap.punkti+50
+        });
+      })
+    }
+  })
+
+  $('.add100').on('click', function(){
+    var target = $(this).attr("data-target");
+    if(target == "team1"){
+      get(team1).then((snapshot) => {
+        var snap = snapshot.val();
+        set(ref(db, 'root/5klasnieks/team1'), {
+          punkti: snap.punkti+100
+        });
+      })
+    }else{
+      get(team2).then((snapshot) => {
+        var snap = snapshot.val();
+        set(ref(db, 'root/5klasnieks/team2'), {
+          punkti: snap.punkti+100
+        });
+      })
+    }
+  })
+
+  $('.resetTeam').on('click', function(){
+    var target = $(this).attr("data-target");
+    if(target == "team1"){
+      get(team1).then((snapshot) => {
+        var snap = snapshot.val();
+        set(ref(db, 'root/5klasnieks/team1'), {
+          punkti: 0
+        });
+      })
+    }else{
+      get(team2).then((snapshot) => {
+        var snap = snapshot.val();
+        set(ref(db, 'root/5klasnieks/team2'), {
+          punkti: 0
+        });
+      })
+    }
+  })
+
+</script>
+  
+</body>
