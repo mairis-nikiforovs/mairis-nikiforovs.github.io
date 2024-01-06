@@ -32,14 +32,13 @@
 
   const db = getDatabase(app);
 
-  const basketball = ref(db, 'root/uzminicenu');
-
+  const basketball = ref(db, 'root/basketball');
   onValue(basketball, (snapshot) => {
+    console.log("tesT2")
     var player1 = snapshot.val().team1;
     var player2 = snapshot.val().team2;
-    console.log(points);
-    $("#team1").text(player1.punkti);
-    $("#team2").text(player2.punkti);
+    $("#team1").text(player1);
+    $("#team2").text(player2);
   });
   </script>
 </body>
