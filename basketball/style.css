@@ -3,7 +3,8 @@
   height: 1080px;
 }
 
-#team1{
+.static1{
+  width: 100px;
   text-align: center;
   position:absolute;
   top: 30px;
@@ -16,7 +17,8 @@ h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-#team2{
+.static2{
+  width: 100px;
   text-align: center;
   position:absolute;
   top: 30px;
