@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Activity controls</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="controls-page">
+  <main class="controls" aria-labelledby="controls-title">
+    <h1 id="controls-title">Activity controls</h1>
+    <div class="control-list">
+      <section class="control" data-activity="basketball">
+        <div class="control-heading"><i class="icon fa-solid fa-basketball" aria-hidden="true"></i><h2>Basketball</h2></div>
+        <div class="score-actions">
+          <button type="button" data-change="-1">-1</button>
+          <output class="current-score">0</output>
+          <button type="button" data-change="1">+1</button>
+        </div>
+        <label>Goal <input class="goal-input" type="text" value="20" inputmode="text"></label>
+        <button class="save-goal" type="button">Set goal</button>
+      </section>
+      <section class="control" data-activity="beers">
+        <div class="control-heading"><i class="icon fa-solid fa-beer-mug-empty" aria-hidden="true"></i><h2>Beers</h2></div>
+        <div class="score-actions">
+          <button type="button" data-change="-1">-1</button>
+          <output class="current-score">0</output>
+          <button type="button" data-change="1">+1</button>
+        </div>
+        <label>Goal <input class="goal-input" type="text" value="20" inputmode="text"></label>
+        <button class="save-goal" type="button">Set goal</button>
+      </section>
+      <section class="control" data-activity="fishing">
+        <div class="control-heading"><i class="icon fa-solid fa-fish" aria-hidden="true"></i><h2>Fishing</h2></div>
+        <div class="score-actions">
+          <button type="button" data-change="-1">-1</button>
+          <output class="current-score">0</output>
+          <button type="button" data-change="1">+1</button>
+        </div>
+        <label>Goal <input class="goal-input" type="text" value="20" inputmode="text"></label>
+        <button class="save-goal" type="button">Set goal</button>
+      </section>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getDatabase, onValue, ref, runTransaction, update } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAAoCC_sfhL8-FAXlzrGspFTFscF2QPfD0",
+      authDomain: "charity-d9975.firebaseapp.com",
+      databaseURL: "https://charity-d9975-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "charity-d9975",
+      storageBucket: "charity-d9975.appspot.com",
+      messagingSenderId: "849116577372",
+      appId: "1:849116577372:web:2df42d50e78bb863c37099"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const activities = ref(db, "root/activities");
+
+    onValue(activities, (snapshot) => {
+      const values = snapshot.val() || {};
+      document.querySelectorAll("[data-activity]").forEach((control) => {
+        const activity = values[control.dataset.activity] || {};
+        control.querySelector(".current-score").textContent = activity.score ?? 0;
+        control.querySelector(".goal-input").value = activity.goal ?? 20;
+      });
+    });
+
+    document.querySelectorAll("[data-change]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const activityName = button.closest("[data-activity]").dataset.activity;
+        const activity = ref(db, `root/activities/${activityName}`);
+        const change = Number(button.dataset.change);
+        runTransaction(activity, (current) => ({
+          score: Number(current?.score || 0) + change,
+          goal: current?.goal ?? 20
+        }));
+      });
+    });
+
+    document.querySelectorAll(".save-goal").forEach((button) => {
+      button.addEventListener("click", () => {
+        const control = button.closest("[data-activity]");
+        const goal = control.querySelector(".goal-input").value.trim() || "20";
+        update(ref(db, `root/activities/${control.dataset.activity}`), { goal });
+      });
+    });
+  </script>
+</body>
+</html>
