@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Activities</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="scoreboard" aria-label="Activity scores">
+    <section class="activity" aria-label="Basketball score">
+      <i class="icon fa-solid fa-basketball" aria-hidden="true"></i>
+      <p class="score" id="basketball-score">0/20</p>
+    </section>
+    <section class="activity" aria-label="Beers score">
+      <i class="icon fa-solid fa-beer-mug-empty" aria-hidden="true"></i>
+      <p class="score" id="beers-score">0/20</p>
+    </section>
+    <section class="activity" aria-label="Fishing score">
+      <i class="icon fa-solid fa-fish" aria-hidden="true"></i>
+      <p class="score" id="fishing-score">0/20</p>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { getDatabase, onValue, ref } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAAoCC_sfhL8-FAXlzrGspFTFscF2QPfD0",
+      authDomain: "charity-d9975.firebaseapp.com",
+      databaseURL: "https://charity-d9975-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "charity-d9975",
+      storageBucket: "charity-d9975.appspot.com",
+      messagingSenderId: "849116577372",
+      appId: "1:849116577372:web:2df42d50e78bb863c37099"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const activities = ref(db, "root/activities");
+    const activityNames = ["basketball", "beers", "fishing"];
+
+    onValue(activities, (snapshot) => {
+      const values = snapshot.val() || {};
+      activityNames.forEach((name) => {
+        const activity = values[name] || {};
+        const score = Number.isFinite(Number(activity.score)) ? activity.score : 0;
+        const goal = activity.goal === undefined || activity.goal === "" ? 20 : activity.goal;
+        document.querySelector(`#${name}-score`).textContent = `${score}/${goal}`;
+      });
+    });
+  </script>
+</body>
+</html>
